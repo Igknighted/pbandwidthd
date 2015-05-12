@@ -15,7 +15,6 @@ my $protocol = "NOTSET";
 
 # Get our local IPs and turn them into a matchable regex
 my $locals = `hostname -i`;
-$locals = $locals . " ::1 127.0.0.1";
 $locals =~ s/\n//g;
 $locals =~ s/ /\|/g;
 $locals =~ s/\./\\./g;
