@@ -38,8 +38,9 @@ if (! -d $logdir){
 }
 
 # Start a TCP dump so we can parse through it to preserve bandwidth data.
-#open STDIN, '-|', 'tcpdump -vnni any port 80';
-open STDIN, '-|', 'tcpdump -vnni any';
+# NOTE: to log only port 80
+# open STDIN, '-|', 'tcpdump -vnni any port 80';
+open STDIN, '-|', 'tcpdump -vnni any 2>/dev/null';
 while ($line = <>) {
 
 	# inside of this mechanism, we will take $compound_data and store the info in files.
