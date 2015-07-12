@@ -9,7 +9,7 @@
 # This does not support UDP at this time
 
 my $logdir = "/var/log/pbandwidthd"; # directory we will store log info in
-my $ticks_reset = 100; # this is how many ticks happen before the packet buffer resets
+my $ticks_reset = 100000; # this is how many ticks happen before the packet buffer resets
 my $ticks = 0;           # initial tick is 0
 
 my %compound_data; # this is the hash table that stores ip packet statistics
