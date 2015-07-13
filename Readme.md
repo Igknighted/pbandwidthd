@@ -23,6 +23,7 @@ If you're on a server where neither of these options are available, you can just
 Start the service: `/usr/local/bin/pbandwidthd.pl`  
 Stop the service:  `/usr/local/bin/pbandwidthd.pl stop`  
   
+All of the data is stored in /var/log/pbandwidthd. The files in that directory contain data on bandwidth useage per IP address. I recommend using logrotate or another tool to rotate out the data.   
   
 __Requirements__  
 The requirements for pbandwidthd.pl to work are:  
