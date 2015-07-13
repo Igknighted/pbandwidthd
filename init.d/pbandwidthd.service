@@ -1,0 +1,13 @@
+[Unit]
+Description=bandwidth monitoring service
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/pbandwidthd.pl
+ExecStop=/bin/kill -WINCH ${MAINPID}
+KillSignal=SIGCONT
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
