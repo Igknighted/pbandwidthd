@@ -37,6 +37,28 @@ if (! -d $logdir){
 	exit 1;
 }
 
+# make this a daemon!
+sub daemonize {
+	use POSIX;
+	POSIX::setsid or die "setsid: $!";
+	my $pid = fork ();
+	if ($pid < 0) {
+		die "fork: $!";
+	} elsif ($pid) {
+		exit 0;
+	}
+	chdir "/";
+	umask 0;
+	foreach (0 .. (POSIX::sysconf (&POSIX::_SC_OPEN_MAX) || 1024)){
+		POSIX::close $_;
+	}
+	open (STDIN, "</dev/null");
+	open (STDOUT, ">/dev/null");
+	open (STDERR, ">&STDOUT");
+}
+
+daemonize();
+
 # Start a TCP dump so we can parse through it to preserve bandwidth data.
 # NOTE: to log only port 80
 # open STDIN, '-|', 'tcpdump -vnni any port 80';
