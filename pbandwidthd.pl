@@ -63,7 +63,7 @@ while ($line = <>) {
 
 			# build our new formated file
 			my $ipaddrdatafile = "";
-			for(keys $compound_data{$ipaddr}){
+			for(keys %{$compound_data{$ipaddr}}){
 				my $field = $_;
 				$ipaddrdatafile =  "$ipaddrdatafile$field: $compound_data{$ipaddr}{$field}\n";
 			}
