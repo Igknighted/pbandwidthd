@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# pbandwidthd        Startup script for the Apache HTTP Server
+#
+# chkconfig: - 85 15
+# description: bandwidth logging tool written in perl
+# processname: pbandwidthd
+# config: 
+# pidfile: 
+#
+### BEGIN INIT INFO
+# Provides: pbandwidthd
+# Required-Start: $local_fs $remote_fs $network $named
+# Required-Stop: $local_fs $remote_fs $network
+# Should-Start: distcache
+# Short-Description: start and stop pbandwidthd
+# Description: Startup script for the Apache HTTP Server
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# This will prevent initlog from swallowing up a pass-phrase prompt if
+# mod_ssl needs a pass-phrase from the user.
+INITLOG_ARGS=""
+
+# Set HTTPD=/usr/sbin/httpd.worker in /etc/sysconfig/httpd to use a server
+# with the thread-based "worker" MPM; BE WARNED that some modules may not
+# work correctly with a thread-based MPM; notably PHP will refuse to start.
+
+
+RETVAL=0
+
+# The semantics of these two functions differ from the way apachectl does
+# things -- attempting to start while running is a failure, and shutdown
+# when not running is also a failure.  So we just do it the way init scripts
+# are expected to behave here.
+start() {
+        /usr/local/bin/pbandwidthd.pl
+}
+
+# When stopping httpd, a delay (of default 10 second) is required
+# before SIGKILLing the httpd parent; this gives enough time for the
+# httpd parent to SIGKILL any errant children.
+stop() {
+	ps aux | grep '[p]bandwidthd.pl' | awk '{print "kill "$2}' | bash
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo $"Usage: $prog {start|stop|restart}"
+	RETVAL=2
+esac
+
+exit $RETVAL
