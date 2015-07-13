@@ -36,6 +36,7 @@ RETVAL=0
 # when not running is also a failure.  So we just do it the way init scripts
 # are expected to behave here.
 start() {
+	ps aux | grep '[p]bandwidthd.pl' || echo pbandwidthd is already running && exit 1
         /usr/local/bin/pbandwidthd.pl
 }
 
