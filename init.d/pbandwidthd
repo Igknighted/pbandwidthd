@@ -36,15 +36,20 @@ RETVAL=0
 # when not running is also a failure.  So we just do it the way init scripts
 # are expected to behave here.
 start() {
-	ps aux | grep '[p]bandwidthd.pl' || echo pbandwidthd is already running && exit 1
+	ps aux | grep -q '[p]bandwidthd.pl' && echo pbandwidthd is already running && exit 1
         /usr/local/bin/pbandwidthd.pl
+        ps aux | grep -q '[p]bandwidthd.pl' && echo pbandwidthd started
+        ps aux | grep -q '[p]bandwidthd.pl' || echo pbandwidthd failed to start
 }
 
 # When stopping httpd, a delay (of default 10 second) is required
 # before SIGKILLing the httpd parent; this gives enough time for the
 # httpd parent to SIGKILL any errant children.
 stop() {
+	ps aux | grep -q '[p]bandwidthd.pl' && echo Killing pbandwidthd
 	ps aux | grep '[p]bandwidthd.pl' | awk '{print "kill "$2}' | bash
+	ps aux | grep -q '[p]bandwidthd.pl' && echo Failed to kill pbandiwdthd...
+	ps aux | grep -q '[p]bandwidthd.pl' || echo Killed pbandiwdthd
 }
 
 # See how we were called.
