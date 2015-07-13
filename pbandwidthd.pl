@@ -27,6 +27,13 @@ $locals =~ s/\n//g;
 $locals =~ s/ /\|/g;
 $locals =~ s/\./\\./g;
 
+# The stop command...
+my $num_args = $#ARGV + 1;
+if($num_args gt 0 && $ARGV[0] eq "stop"){
+	print "Running a kill on pbandwidthd\n";
+	`ps aux | grep '[p]bandwidthd.pl' | awk '{print "kill "\$2}'|sh`;
+	exit 0;
+}
 
 # create our log directory if it doesn't exist
 if (! -d $logdir){
