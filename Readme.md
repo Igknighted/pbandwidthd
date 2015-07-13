@@ -8,7 +8,7 @@ curl -s https://raw.githubusercontent.com/Igknighted/pbandwidthd/master/bootstra
   
 This command will also update pbandwidthd's files.  
   
-__Usage__
+__Usage__  
 If you're using a server that still uses the old system command, below are the commands you'll want to run.  
 Start on boot: `chkconfig pbandwidthd on`  
 Start the service: `system start pbandwidthd`  
