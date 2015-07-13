@@ -10,10 +10,10 @@ chmod +x pbandwidthd.pl
 
 if [ -d /etc/init.d ]; then
   cd /etc/init.d
-  wget https://raw.githubusercontent.com/Igknighted/pbandwidthd/master/init.d/pbandwidthd
+  wget https://raw.githubusercontent.com/Igknighted/pbandwidthd/master/extra/pbandwidthd
 fi
 
 if [ -d /etc/systemd/system ]; then
   cd /etc/systemd/system
-  wget https://raw.githubusercontent.com/Igknighted/pbandwidthd/master/init.d/pbandwidthd.service
+  wget https://raw.githubusercontent.com/Igknighted/pbandwidthd/master/extra/pbandwidthd.service
 fi
